@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>CSS Template</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: rgba(0, 238, 255, 0.473);
+  padding: 10px;
+  text-align: center;
+  font-size: 35px;
+  color: black;
+}
+
+/* Container for flexboxes */
+section {
+  display: -webkit-flex;
+  display: flex;
+}
+
+/* Style the navigation menu */
+nav {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  background: white;
+  padding: 0px;
+}
+
+/* Style the content */
+article {
+  -webkit-flex: 3;
+  -ms-flex: 3;
+  flex: 3;
+  background-color: #f1f1f1;
+  padding: 10px;
+}
+
+/* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
+@media (max-width: 600px) {
+  section {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+}
+nav table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+nav th, td{
+    padding: 15px;
+}
+</style>
+</head>
+<body>
+
+
+<header>
+  <h2>SCI's the Limit Education</h2>
+</header>
+
+<section>
+  <nav>
+    <table style="width:100%">
+        <tr>
+            <th>Username</th>
+        </tr>
+        <tr>
+            <th>Math Score: </th>
+        </tr>
+        <tr>
+            <th>History Score: </th>
+        </tr>
+        <tr>
+            <th>Science Score: </th>
+        </tr>
+        <tr>
+            <th>English Score: </th>
+        </tr>
+        <tr>
+            <th>
+                <a href="file:///C:/Users/zogre/OneDrive/Desktop/CS1530/CS1530_G6/sci_education/home.html">Home</a>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <a href="file:///C:/Users/zogre/OneDrive/Desktop/CS1530/CS1530_G6/sci_education/login.html">Logout</a>
+            </th>
+    </table>
+  </nav>
+  
+  <article>
+    <h1 style="text-align:center;"> Assignment Progress</h1>
+    <p style ="text-align:center;">This is where a table for assignment progress will go</p>
+  </article>
+</section>
+</body>
+</html>
