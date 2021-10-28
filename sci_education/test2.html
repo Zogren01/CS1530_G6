@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>CSS Template</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            * {
+              box-sizing: border-box;
+            }
+
+            body {
+              font-family: Arial, Helvetica, sans-serif;
+            }
+            /* Container for flexboxes */
+            section {
+              display: -webkit-flex;
+              display: flex;
+            }
+
+            /* Style the navigation menu */
+            nav {
+              -webkit-flex: 1;
+              -ms-flex: 1;
+              flex: 1;
+              background: white;
+              padding: 0px;
+            }
+
+            /* Style the content */
+            article {
+              -webkit-flex: 3;
+              -ms-flex: 3;
+              flex: 3;
+              background-color: powderblue;
+              padding: 10px;
+            }
+
+            /* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
+            @media (max-width: 600px) {
+              section {
+                -webkit-flex-direction: column;
+                flex-direction: column;
+              }
+            }
+            nav table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                font-size: 25px;
+            }
+            nav th, td{
+                padding: 20px;
+            }
+            .gamelink{
+                width: 275px;
+                height: 125px;
+                font-size: 40px;
+                text-align: center;
+                margin: 50px;
+                padding: 20px;
+                border: 1px solid black;
+                float:left;
+            }
+         </style>
+    </head>
+    <body>
+        <section>
+          <nav>
+            <table style="width:100%;">
+            <tr>
+                <th>Username</th>
+            </tr>
+            <tr>
+                <th>Math Score: </th>
+            </tr>
+            <tr>
+                <th>History Score: </th>
+            </tr>
+            <tr>
+                <th>Science Score: </th>
+            </tr>
+            <tr>
+                <th>English Score: </th>
+            </tr>
+            <tr>
+                <th>
+                    <a href="./assignments.html">Assignments Page</a>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <a href="./chat.html">Chat</a>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <a href="./login.html">Logout</a>
+                </th>
+            </tr>
+            </table>
+          </nav>
+
+          <article>
+            <h1 style ="text-align:center;font-size:50px;color:black;">SCI's the Limit Education</h1>
+            <h1 style="text-align:center;"> Games</h1>
+            <!--Need to figure out how to actually run the python script from the html link-->
+            <a href="./game.py">
+                <div class="gamelink" style = "background:blue;">Math</div>
+            </a>
+            <a href="./game.py">
+                <div class="gamelink" style = "background:green;">Science</div>
+            </a>
+            <a href="./game.py">
+                <div class="gamelink" style = "background:red;">History</div>
+            </a>
+            <a href="./game.py">
+                <div class="gamelink" style = "background:orange;">English</div>
+            </a>
+          </article>
+        </section>
+        
+        <script src="./script.js"></script>
+    </body>
+</html>
+<div id="bg">
+    <!--Sky will hold "SCI's the limit" and ideally some sort of animation for the sky-->
+    <div id="sky"></div>
+    <!--Mid will hold the 4 tower links to the games and ideally some sort of animation of the player character-->
+    <div id="mid">
+    </div>
+    <!--Ground will probably just be an image of dirt-->
+    <div id="ground"></div>
+</div>

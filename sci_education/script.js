@@ -1,6 +1,10 @@
 //script file for website
-alert("The script is working");
-//need to figure out how to use eventlisteners
-document.getElementsByClassName("gamelink").addEventListener("click", function(){
-    alert("Games not yet added");
-});
+/* Set the width of the side navigation to 250px */
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+  
+  /* Set the width of the side navigation to 0 */
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
