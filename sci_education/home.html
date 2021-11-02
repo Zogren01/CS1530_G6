@@ -12,8 +12,11 @@
         </style>
     </head>
     <body>
+        <!--div that is the side navigation menu-->
         <div id="mySidenav" class="sidenav">
+            <!--Link for button to close sidenav-->
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <!--Table with contents of menu-->
             <table style="width:100%;">
                 <tr>
                     <th>Username</th>
@@ -45,16 +48,19 @@
                         <a href="./login.html">Logout</a>
                     </th>
                 </tr>
-                </table>
-          </div>
+            </table>
+        </div>
           
           <!-- Use any element to open the sidenav -->
-          <span onclick="openNav()">menu</span>
-          
-          <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
-          <div id="main">
-            ...
+        <div onclick ="openNav()" id = "unopen_sidenav">
+            <!--Add some image used for button to open menu-->
+            menu
         </div>
+        <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+        <div id="main">
+            
+        </div>
+        <!--Source for javascript file-->
         <script src="./script.js"></script>
     </body>
 </html>
