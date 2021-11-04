@@ -1,6 +1,13 @@
 /*Move styling for website here to reduce repitition throughout files and 
 organize styling*/
 /* The side navigation menu */
+canvas {
+  border:1px solid #d3d3d3;
+  background-color: #f1f1f1;
+  position: absolute;
+  top: 55%;
+  left: 12.5%;
+}
 .sidenav {
   height: 100%; /* 100% Full-height */
   width: 0; /* 0 width - change this with JavaScript */
