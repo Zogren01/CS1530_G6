@@ -15,7 +15,7 @@ canvas {
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
-  background-color:gray; /* Black*/
+  background-color:white; /* Black*/
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
@@ -26,14 +26,14 @@ canvas {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  color: blue; /*change later*/
+  color: black; /*change later*/
   display: block;
   transition: 0.3s;
 }
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
-  color: #f1f1f1;
+  color: blue;
 }
 
 /* Position and style the close button (top right corner) */
@@ -60,7 +60,7 @@ th, td{
   height: 120px;
   width: 20px;
   float: left;
-  background-color: gray;
+  background-color: white;
   writing-mode: vertical-rl;
   text-orientation: upright;
 }
