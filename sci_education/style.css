@@ -1,6 +1,13 @@
 /*Move styling for website here to reduce repitition throughout files and 
 organize styling*/
 /* The side navigation menu */
+canvas {
+  border:1px solid #d3d3d3;
+  background-color: #f1f1f1;
+  position: absolute;
+  top: 55%;
+  left: 12.5%;
+}
 .sidenav {
   height: 100%; /* 100% Full-height */
   width: 0; /* 0 width - change this with JavaScript */
@@ -37,7 +44,26 @@ organize styling*/
   font-size: 36px;
   margin-left: 50px;
 }
-
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 25px;
+}
+th, td{
+  padding: 20px;
+}
+/* Position and style of the open button(left side of home screen) */
+#unopen_sidenav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 120px;
+  width: 20px;
+  float: left;
+  background-color: gray;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 #main {
   transition: margin-left .5s;
@@ -49,16 +75,7 @@ organize styling*/
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
   }
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    font-size: 25px;
-}
-th, td{
-    padding: 20px;
-}
 body{
-    text-align:center;
     font-size:x-large;
     margin: 0px;
     padding: 0px;
