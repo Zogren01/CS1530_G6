@@ -4,6 +4,8 @@ var player;
 const gravity = 0.98;
 const spriteWidth = 48;
 const spriteHeight = 48;
+var levelNo = 0; //store the current level of the game 
+var subject; //store value of subject, so that different map textures may be used
 
 function startGame(){
     myGameArea.start();
@@ -264,6 +266,9 @@ function p(x, y, width, height){ //function for the player character
     }
 }
 
+function loadLevel(){
+ //this will load the current map, which will be a text file of obstacles  
+}
 function updateGameArea() {
     myGameArea.clear();
     if(keyPressed == 'ArrowLeft'){
