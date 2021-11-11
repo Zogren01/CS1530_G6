@@ -11,10 +11,12 @@ var subject; //store value of subject, so that different map textures may be use
 function startGame(){
     myGameArea.start();
     player = new p(0, myGameArea.canvas.height - spriteHeight, spriteWidth, spriteHeight);//should put player in bottom left corner
-    test = new obstacle(100, myGameArea.canvas.height - spriteHeight, 500, 20, false);
-    test2 = new obstacle(200, test.y - (spriteHeight*2), 500, 20, false);
-    test3 = new obstacle(750, test.y - (spriteHeight*2), 500, 20, false);
-    test4 = new obstacle(1000, test2.y - 75, 20, 20, true);
+    //obstacle(x, y, width, height, dx, range, isGoal)
+    test0 = new obstacle(300, myGameArea.canvas.height - spriteHeight, 500, spriteHeight, 0, 0, false);
+    test1 = new obstacle(100, test0.y - 80, 150, 30, 0, 0, false);
+    test2 = new obstacle(250, test1.y - 60, 100, 30, 2, 500, false);
+    test3 = new obstacle(850, test2.y - 100, 100, 500, 0, 0, false);
+
 }
 var myGameArea = {
     canvas : document.createElement("canvas"),
@@ -42,15 +44,19 @@ var myGameArea = {
       this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 }
-function obstacle(x, y, width, height, isGoal){
+function obstacle(x, y, width, height, dx, range, isGoal){
 
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
+    this.dx = dx;
+    this.initPos = x;
+    this.range = range; //restricts how far from initial position obstacle can travel
     this.isGoal = isGoal;
     obstacles.push(this);
     this.draw = function(){
+      console.log("displaying obstacle");
         ctx = myGameArea.context;
         if(isGoal){
             ctx.fillStyle = "red";
@@ -59,6 +65,12 @@ function obstacle(x, y, width, height, isGoal){
             ctx.fillStyle = "black";
         }
         ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+    this.updatePosition = function(){
+      if(this.x + this.dx < this.initPos || this.x + this.dx > this.range + this.initPos){
+        this.dx = this.dx * -1;
+      }
+      this.x += this.dx;
     }
 }
 function p(x, y, width, height){ //function for the player character
@@ -190,6 +202,7 @@ function updateGameArea() {
       player.idle();
     }
     for(i = 0; i < obstacles.length; i++){
+        obstacles[i].updatePosition();
         obstacles[i].draw();
     }
     player.updatePosition();
