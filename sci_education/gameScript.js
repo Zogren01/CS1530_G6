@@ -4,7 +4,8 @@ var player;
 const gravity = 0.98;
 const spriteWidth = 48;
 const spriteHeight = 48;
-var levelNo = 0; //store the current level of the game 
+var numLevels = 1;
+var levelNo = 0; //store the current level of the game
 var subject; //store value of subject, so that different map textures may be used
 
 function startGame(){
@@ -43,7 +44,7 @@ var myGameArea = {
 }
 function obstacle(x, y, width, height, isGoal){
 
-    this.x = x; 
+    this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
@@ -79,108 +80,29 @@ function p(x, y, width, height){ //function for the player character
         ctx = myGameArea.context;
         ctx.drawImage(this.myImage, this.actionFrame * spriteWidth, this.actionType * spriteHeight,
             spriteWidth, spriteHeight, this.x, this.y, spriteWidth, spriteHeight);
-        this.dx = 0; //reset x motion before updating position
     }
     this.updatePosition = function(){
         this.checkCollision();
         this.x += this.dx;
         this.y += this.dy;
     }
+    this.idle = function(){
+      this.dx = 0;
+    }
     this.moveRight = function(){
         if(this.actionType < 6){
             this.dx = 4;
         }
-        /*
-        if(this.actionType < 4){
-            if(this.actionType == 0){
-                this.actionType = 2;
-                this.actionFrame = 0;
-            }
-            else if(this.actionType == 1 || this.actionType == 3){
-                this.actionType = 0;
-                this.actionFrame = 0;
-            }
-            else{
-                this.dx = 4;
-                if(this.keepFrame){
-                    this.keepFrame = false;
-                }
-                else{
-                    this.keepFrame = true;
-                    this.actionFrame = (this.actionFrame + 1) % 5;
-                    if(this.actionFrame == 0){
-                        keyPressed = false;
-                        this.actionType = 0;
-                        this.step = !this.step;
-                    }
-                    else if(this.step){
-                        this.actionFrame += 5;
-                    }
-                }
-            }
-        }*/
     }
     this.moveLeft = function(){
         if(this.actionType < 6){
             this.dx = -4;
         }
-        /*
-        if(this.actionType < 4){
-            if(this.actionType == 1){
-                this.actionType = 3;
-                this.actionFrame = 0;
-            }
-            else if(this.actionType == 0 || this.actionType == 2){
-                this.actionType = 1;
-                this.actionFrame = 0;
-            }
-            else{
-                this.dx = -4;
-                if(this.keepFrame){
-                    this.keepFrame = false;
-                }
-                else{
-                    this.keepFraem = true;
-                    this.actionFrame = (this.actionFrame + 1) % 5;
-                    if(this.actionFrame == 0){
-                        keyPressed = false;
-                        this.actionType = 1;
-                        this.step = !this.step;
-                    }
-                    else if(this.step){
-                        this.actionFrame += 5;
-                    }
-                }
-            }
-        }
-        */
     }
     this.jump = function(){ //this function in particular needs lots of editing once jump sprites are complete
         if(this.actionType < 6 && this.dy == 0){
             this.dy = -15;
         }
-        /*
-        if(this.actionType < 6){
-            if(this.actionType == 0 || this.actionType == 2){
-                this.actionType = 4;
-                this.actionFrame = 0;
-            }
-            else if(this.actionType == 1 || this.actionType == 3){
-                this.actionType = 5;
-                this.actionFrame = 0;
-            }
-            else{
-                this.actionFrame = this.actionFrame + 1;
-                if(this.actionFrame = 1){
-                    if(this.dy == 0){
-                        this.dy = -15;
-                    }
-                }
-                keyPressed = false;
-                this.actionType = 0;
-            }
-        } 
-        */
     }
     this.crouch = function(){
         if(this.actionType != 6){
@@ -188,25 +110,6 @@ function p(x, y, width, height){ //function for the player character
             this.height = 24;
             this.y = this.y + 24;
         }
-        /*
-        if(this.actionType != 4 && this.actionType != 5){
-            if(this.actionType == 0 || this.actionType == 2){
-                this.actionType = 6;
-                this.actionFrame = 0;
-            }
-            else if(this.actionType == 1 || this.actionType == 3){
-                this.actionType = 7;
-                this.actionFrame = 0;
-            }
-            else{
-                this.actoinFrame = (this.actionFrame + 1) % 8;
-                if(this.actionFrame == 0){
-                    this.actionType = 0;
-                    this.keyPressed = false;
-                }
-            }
-        }
-        */
     }
     this.checkCollision = function(){
         this.onSurface = false; //default to falling
@@ -225,24 +128,7 @@ function p(x, y, width, height){ //function for the player character
         }
         for(i = 0; i < obstacles.length; i ++){
             current = obstacles[i];
-            if(this.y + this.height > current.y && this.y < current.y + current.height){ 
-                if(this.x + this.dx + this.width >= current.x && this.x < current.x + current.width){
-                    if(current.isGoal){
-                        alert("end of level, teacher question will appear here")
-                    }
-                    this.x = current.x - this.width;
-                    this.dx = 0;
-                }
-                else if(this.x + this.dx <= current.x + current.width && this.x + this.width > current.x){
-                    if(current.isGoal){
-                        alert("end of level, teacher question will appear here")
-                    }
-                    this.x = current.x + current.width;
-                    this.dx = 0;
-                }
-
-            }
-            if(this.x + this.width > current.x && this.x < current.x + current.width){
+            if(this.x + this.width > current.x && this.x < current.x + current.width){ //check and update y based on position
                 if(this.y + this.dy + this.height >= current.y && this.y < current.y + current.height){
                     if(current.isGoal){
                         alert("end of level, teacher question will appear here")
@@ -259,6 +145,23 @@ function p(x, y, width, height){ //function for the player character
                     this.dy = 0;
                 }
             }
+            if(this.y + this.height > current.y && this.y < current.y + current.height){ //check and update x based on position
+                if(this.x + this.dx + this.width >= current.x && this.x < current.x + current.width){
+                    if(current.isGoal){
+                        alert("end of level, teacher question will appear here")
+                    }
+                    this.x = current.x - this.width;
+                    this.dx = 0;
+                }
+                else if(this.x + this.dx <= current.x + current.width && this.x + this.width > current.x){
+                    if(current.isGoal){
+                        alert("end of level, teacher question will appear here")
+                    }
+                    this.x = current.x + current.width;
+                    this.dx = 0;
+                }
+
+            }
         }
         if(!this.onSurface){
             this.dy = this.dy+gravity;
@@ -267,7 +170,7 @@ function p(x, y, width, height){ //function for the player character
 }
 
 function loadLevel(){
- //this will load the current map, which will be a text file of obstacles  
+ //this will load the current map, which will be a text file of obstacles
 }
 function updateGameArea() {
     myGameArea.clear();
@@ -282,6 +185,9 @@ function updateGameArea() {
     }
     if(keyPressed == 'ArrowUp'){
         player.jump();
+    }
+    if(keyPressed == false){
+      player.idle();
     }
     for(i = 0; i < obstacles.length; i++){
         obstacles[i].draw();
