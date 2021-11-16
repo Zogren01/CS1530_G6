@@ -20,18 +20,18 @@ function displayHome() {
 //Code for game links
   function selectMath(){
     console.log("math");
-    localStorage.setItem("subject","m");
+    localStorage.setItem("subject","Math");
   }
   function selectScience(){
     console.log("science");
-    localStorage.setItem("subject","s");
+    localStorage.setItem("subject","Science");
   }
   function selectHistory(){
     console.log("history");
-    localStorage.setItem("subject","h");
+    localStorage.setItem("subject","History");
   }
   function selectEnglish(){
     console.log("english");
-    localStorage.setItem("subject","e");
+    localStorage.setItem("subject","English");
   }
 //Ene code for game links

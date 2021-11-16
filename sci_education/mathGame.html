@@ -21,11 +21,17 @@
             body{
                 min-height: 98%;
                 min-width: 99%;
+                background-image: url("./generic_bg.png");
+                text-align: center;
             }
         </style>
     </head>
     <!--Eventually change this so that the student has to select an assignment before the game starts-->
-    <body onload="startGame()">
+    <body>
+        <h1>Math</h1><br><br>
+        <p1>This section will hold a table of all current assignmments</p1> <br>
+        <p1>Clicking one of these assignments will start the game with specified assingment questions</p1> <br>
+        <button onclick="startGame()">Click here to start game</button>
         <script src="./gameScript.js"></script>
         <!--Finish the game then add exit button-->
     </body>
