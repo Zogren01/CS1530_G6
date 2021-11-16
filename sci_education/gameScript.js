@@ -6,15 +6,20 @@ const spriteWidth = 48;
 const spriteHeight = 48;
 var numLevels = 1;
 var levelNo = 0; //store the current level of the game
-var subject; //store value of subject, so that different map textures may be used
+var subject = localStorage.getItem("subject"); //store value of subject, so that different map textures may be used
 var gameOver = false;
 var levelClear = false;
 
-function startGame(){
+const cw = document.body.clientWidth * .65;
+const ch = document.body.clientHeight * .65;
 
+function startGame(){
+    console.log(subject);
     myGameArea.start();
     player = new p(20, myGameArea.canvas.height - spriteHeight, spriteWidth, spriteHeight);//should put player in bottom left corner
     //obstacle(x, y, width, height, dx, range, isGoal)
+    console.log(myGameArea.canvas.width);
+    console.log(myGameArea.canvas.height);
     wall = new obstacle(0, 0, 20, myGameArea.canvas.height, 0, 0, 'w');
     wall0 = new obstacle(myGameArea.canvas.width-20, 0, 20, myGameArea.canvas.hieght, 0, 0, 'w');
     test0 = new obstacle(300, myGameArea.canvas.height - spriteHeight, 500, spriteHeight, 0, 0, 'w');
@@ -30,8 +35,8 @@ function startGame(){
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-      this.canvas.width = document.body.clientWidth * .6;
-      this.canvas.height = document.body.clientHeight * .6;
+      this.canvas.width = cw;
+      this.canvas.height = ch;
       this.context = this.canvas.getContext("2d");
       document.body.insertBefore(this.canvas, document.body.childNodes[0]);
       this.interval = setInterval(updateGameArea, 20);
