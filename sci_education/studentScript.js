@@ -34,4 +34,27 @@ function displayHome() {
     console.log("english");
     localStorage.setItem("subject","e");
   }
-//Ene code for game links
+//End code for game links
+
+
+
+//SQL queries for retrieving Subject scores
+/*
+  function getMathScore() {
+	SELECT mathLevel FROM dbo.profiles
+	WHERE username = '$username';
+  }
+  function getHistoryScore() {	
+    SELECT historyLevel FROM dbo.profiles
+	WHERE username = '$username';
+  }
+  function getScienceScore() {
+	SELECT scienceLevel FROM dbo.profiles
+	WHERE username = '$username';
+  }
+  function getEnglishScore() {
+    SELECT englishLevel FROM dbo.profiles
+	WHERE username = '$username';
+  }
+*/
+//End code for retrieving Subject scores
