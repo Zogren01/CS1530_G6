@@ -90,3 +90,16 @@ body{
   width: 95%;
   height: 40%;
 }
+.quadrant{
+  text-align: center;
+  position: relative;
+  width: 50%;
+  height: 50%;
+  float: left;
+}
+.l{
+  margin: auto;
+  width: 80%;
+  height: 80%;
+  font-size: x-large;
+}

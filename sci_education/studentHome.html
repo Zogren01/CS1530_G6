@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Home Page</title>
+        <title>Student Home</title>
         <link rel="stylesheet" href="./style.css">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -59,10 +59,26 @@
         <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
         <div id="main">
             <div id="linkSection">
-                <a href="./mathGame.html" onclick="selectMath()">Math</a><br>
-                <a href="./scienceGame.html" onclick="selectScience()">Science</a><br>
-                <a href="./historyGame.html" onclick="selectHistory()">History</a><br>
-                <a href="./englishGame.html" onclick="selectEnglish()">English</a><br>
+                <div class="quadrant">
+                    <button type="button" class="l" onclick="selectMath()" style=background-color:blue;>
+                        Math
+                    </button>
+                </div>
+                <div class="quadrant">
+                    <button type="button" class="l" onclick="selectScience()" style=background-color:green;>
+                        Science
+                    </button>
+                </div>
+                <div class="quadrant">
+                    <button type="button" class="l" onclick="selectHistory()" style=background-color:red;>
+                        History
+                    </button>
+                </div>
+                <div class="quadrant">
+                    <button type="button" class="l" onclick="selectEnglish()" style=background-color:purple;>
+                        English
+                    </button>
+                </div>
             </div>
         </div>
         <!--Source for javascript file-->

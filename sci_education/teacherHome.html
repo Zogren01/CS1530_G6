@@ -1,4 +1,40 @@
 <!DOCTYPE html>
 <html>
-Teacher home page yet to be implemented
+    <head>
+        <title>Teacher Home</title>
+        <link rel="stylesheet" href="./style.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            html,body{
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class = "quadrant">
+            <button type="button" class="l" onclick="createStudent()" style=background-color:powderblue;>
+                Create Student
+            </button>
+        </div>
+        <div class = "quadrant">
+            <button type="button" class="l" onclick="createAssignment()" style=background-color:powderblue;>
+                Create Assignment
+            </button>
+        </div>
+        <div class = "quadrant">
+            <button type="button" class="l" onclick="viewClass()" style=background-color:powderblue;>
+                View Class
+            </button>
+        </div>
+        <div class = "quadrant">
+            <button type="button" class="l" onclick="chat()" style=background-color:powderblue;>
+                Chatroom
+            </button>
+        </div>
+        <script src = "teacherScript.js"></script>
+    </body>
 </html>

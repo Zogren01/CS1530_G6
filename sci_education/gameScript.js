@@ -8,9 +8,9 @@ var subject = localStorage.getItem("subject"); //store value of subject, so that
 var gameOver = false;
 var levelClear = false;
 
-const cw = document.body.clientWidth * .7;
-const ch = cw * .65;
+const cw = document.body.clientWidth * .8;
 const tileSize = cw/48;
+const ch = tileSize * 24;
 const gravity = tileSize/10;
 const spriteWidth = 2*tileSize;
 const spriteHeight = 2*tileSize;
