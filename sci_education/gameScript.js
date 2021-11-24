@@ -1,4 +1,20 @@
 /*
+Things to do (necessity):
+    -player collision sometimes behaves weirdly (fix this)
+    -add levels
+    -finish adding backgrounds
+    -finish adding tiles for different objects and fix current ones
+    -modify object code so object images don't stretch in weird ways
+    -make player stick to moving objects
+Things to do (wish list):
+    -add animations for player
+    -refine player movement based on animations (refine feel of controls)
+    -add blocks that switch gravity
+    -add portals
+    -add ladders
+    -add more levels
+*/
+/*
 code to implement all levels 
 levels array holds arrays of objects
 objects have format:
@@ -10,7 +26,7 @@ const l0 = [ //this level sucks, fix it later
     [0, 11, 20, 1, 0, 0, 1],
     [24, 11, 18, 1, 0, 0, 1],
     [1, 9, 2, 2, 0, 0, 3],
-    [1, 18, 3, 1, .1, 43, 1],
+    [1, 28, 3, 1, .1, 33, 1],
     [8, 20, 2, 4, 0, 0, 1],
     [30, 20, 2, 4, 0, 0, 1],
     [45, 16, 2, 1, 0, 0, 1],
@@ -20,7 +36,7 @@ const l0 = [ //this level sucks, fix it later
 const l1 = [
     [4, 4, 4, 1, 0, 0, 1],
     [11, 4, 6, 1, .1, 23, 1],
-    [30, 1.5, 1.5, 2, 0, 0, 2],
+    [30, 2.5, 1.5, 1.5, 0, 0, 2],
     [10, 8, 4, 1, 0, 0, 1],
     [18, 9, 4, 1, 0, 0, 1],
     [8, 21, 2, 3, 0, 0, 1],
@@ -57,7 +73,7 @@ var subject = localStorage.getItem("subject");  //store value of subject to set 
 var gameOver = false;                           //used for collision with a hazard obstacle
 var levelClear = false;                         //used for collision with a goal obstacle
 var bg = new Image(cw, ch);                     //stores the background image
-  
+
 //starts the game
 function startGame(){
     console.log(subject);
