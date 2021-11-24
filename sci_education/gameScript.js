@@ -1,3 +1,10 @@
+/*
+code to implement all levels 
+levels array holds arrays of objects
+objects have format:
+  [x, y, width, height, speed, range, type]
+all values are scaled based on TS, the size of game tiles
+*/
 var levels = [];
 const l0 = [ //this level sucks, fix it later
     [0, 11, 20, 1, 0, 0, 1],
@@ -32,58 +39,66 @@ const l1 = [
     ];
 levels.push(l0);
 levels.push(l1);
+//end code to implement all levels
 
-var obstacles = [];
-var keyPressed = false;
-var player;
+//constants needed for game
+const toClear = 2;                          //store the number of levels in a given assignment
+const cw = document.body.clientWidth * .8;  //canvas width
+const TS = cw/48;                           //tile size based on canvase width
+const ch = TS * 24;                         //canvas height based on tile size
+const gravity = 0.1;                        //gravity (to be scaled by tile size when used in code)
 
-var levelNo = 0; //store the current level of the game
-const toClear = 2;
-var subject = localStorage.getItem("subject"); //store value of subject, so that different map textures may be used
-var gameOver = false;
-var levelClear = false;
-
-const cw = document.body.clientWidth * .8;
-const TS = cw/48;
-const ch = TS * 24;
-const gravity = 0.1;
-    var bg = new Image(cw, ch);
-    
-    function startGame(){
-        console.log(subject);
-        myGameArea.start();
-        bg.src = "./"+subject+"_bg.png";
-        player = new p(2, 22, 2, 2);//should put player in bottom left corner
-        wall0 = new obstacle(0, 0, 1, 24, 0, 0, 1);    
-        wall1 = new obstacle(47, 0, 1, 24, 0, 0, 1);  
-        loadLevel();
+//variables needed for game
+var levelNo = 0;                                //store the current level of the game, when equal to toClear, assignment is complete
+var player;                                     //the player character
+var obstacles = [];                             //stores all objects of current level
+var keyPressed = false;                         //stores key most recently pressed
+var subject = localStorage.getItem("subject");  //store value of subject to set map textures based on subject
+var gameOver = false;                           //used for collision with a hazard obstacle
+var levelClear = false;                         //used for collision with a goal obstacle
+var bg = new Image(cw, ch);                     //stores the background image
+  
+//starts the game
+function startGame(){
+    console.log(subject);
+    myGameArea.start();
+    bg.src = "./"+subject+"_bg.png";
+    player = new p(2, 22, 2, 2);//should put player in bottom left corner
+    wall0 = new obstacle(0, 0, 1, 24, 0, 0, 1);    //left and right side walls
+    wall1 = new obstacle(47, 0, 1, 24, 0, 0, 1);  
+    loadLevel();
 }
+
+//defines the game area
 var myGameArea = {
     canvas : document.createElement("canvas"),
+    //initializes the canvas used by the game
     start : function() {
       this.canvas.width = cw;
       this.canvas.height = ch;
       this.context = this.canvas.getContext("2d");
       document.body.insertBefore(this.canvas, document.body.childNodes[0]);
       this.interval = setInterval(updateGameArea, 20);
-      window.addEventListener("keydown",function(e){
+      window.addEventListener("keydown",function(e){ //listener for key pressed
             keyPressed = e.key;
       });
-      window.addEventListener("keyup",function(e){
+      window.addEventListener("keyup",function(e){ //listener for key released
             if(e.key == 'ArrowDown'){
-                
+                //might implement later, special case for when player is ducking
             }
             if(e.key == keyPressed){
                 keyPressed = false;
             }
       });
       },
+    //clears canvas so it can be redrawn every frame
     clear : function() {
       this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 }
-function obstacle(x, y, width, height, dx, range, type){
 
+//very similar to java class, takes details for an object and provides methods for that object
+function obstacle(x, y, width, height, dx, range, type){
     this.x = x;
     this.y = y;
     this.width = width;
@@ -94,6 +109,7 @@ function obstacle(x, y, width, height, dx, range, type){
     this.type = type;
     this.image = new Image(this.width, this.height);
     obstacles.push(this);
+    //draws image of object based on type and locaiton
     this.draw = function(){
         ctx = myGameArea.context;
         if(type == 1){
@@ -109,6 +125,7 @@ function obstacle(x, y, width, height, dx, range, type){
             ctx.fillRect(this.x * TS, this.y*TS, this.width*TS, this.height*TS);
         }
     }
+    //updates position of moving objects, flips direction when outside of objects range
     this.updatePosition = function(){
       if(this.x + this.dx < this.initPos || this.x + this.dx > this.range + this.initPos){
         this.dx = this.dx * -1;
@@ -116,6 +133,8 @@ function obstacle(x, y, width, height, dx, range, type){
       this.x += this.dx;
     }
 }
+
+//similar to java class, defines player and their functions
 function p(x, y, width, height){ //function for the player character
 
     this.x = x;
@@ -126,41 +145,46 @@ function p(x, y, width, height){ //function for the player character
     this.height = height;
     this.onSurface = true;
     this.actionType = 0; //0 is for idle player facing right
-    this.actionFrame = 0;
-    this.keepFrame = true;
-    this.step = false;
+    //draws the player
     this.updateImage = function(){
         ctx = myGameArea.context;
         ctx.fillStyle = 'blue';
         ctx.fillRect(this.x*TS, this.y*TS, this.width*TS, this.height*TS);
     }
+    //checks for collision and updates player position
     this.updatePosition = function(){
         this.checkCollision();
         this.x += this.dx;
         this.y += this.dy;
     }
+    //will be used to implement frame changes for idle player
     this.idle = function(){
       this.dx = 0;
     }
+    //move right command
     this.moveRight = function(){
         if(this.actionType < 6){
             this.dx = 1/3;
         }
     }
+    //move left command
     this.moveLeft = function(){
         if(this.actionType < 6){
             this.dx = -1/3;
         }
     }
+    //jump command
     this.jump = function(){ //this function in particular needs lots of editing once jump sprites are complete
         if(this.actionType < 6 && this.onSurface){
             this.dy = -1;
         }
     }
+    //crouch command
     this.crouch = function(){
-
+        //might implement later
     }
-    this.checkCollision = function(){ //issue when player gets hit by moving object, causes player to teleport on top of said object (current thoughts to fix: NA)
+    //checks if player is hit by a moving object or will hit a moving object based on current motion
+    this.checkCollision = function(){ //THERE ARE STILL GLITCHES WITH THIS FUNCTION
         this.onSurface = false; //default to falling
         if(this.y + this.height + this.dy >= 24){
             this.y = 22;
@@ -227,11 +251,12 @@ function p(x, y, width, height){ //function for the player character
             this.dy = this.dy+gravity;
         }
     }
-    this.inLine = function(pos1, len1, pos2, len2){
+    this.inLine = function(pos1, len1, pos2, len2){ //helps prevent redundancy in code
         return (pos1 < pos2 + len2 && pos1 + len1 > pos2);
     }
 }
 
+//clears old level, selects a random new level from levels, and loads all objects into objects[]
 function loadLevel(){
     while(obstacles.length > 2){
         obstacles.pop();
@@ -243,6 +268,8 @@ function loadLevel(){
         temp = new obstacle(map[i][0],map[i][1],map[i][2],map[i][3],map[i][4],map[i][5],map[i][6]);
     }
 }
+
+//checks variables for level failure or completion, calls player fucntions based on keyPressed, and updates all object&player positions
 function updateGameArea() {
   if(gameOver){
     alert("Game over, don't touch the red");
