@@ -10,11 +10,13 @@
         <h2 style="text-align:center;">Account Creation</h2>
         <label for="username">Username: (must be less than 20 characters)</label><br>
         <input type="text" id="username" name="username"><br>
-        <label for="password">Password: (must be at least 7 characters)</label><br>
-        <input type="password" id="password" name="password"><br>
         <label for="email">Email:</label><br>
         <input type="text" id="email" name="email"><br><br>
-        <button type="button">Create Account</button><br>
+        <label for="password">Password: (must be at least 7 characters)</label><br>
+        <input type="password" id="password" name="password"><br>
+        <label for="confpassword">Confirm Password:</label><br>
+        <input type="password" id="confpassword" name="confpassword"><br>
+        <button type="button" onclick="createAccount()">Create Account</button><br>
         <!--Add a script to check the requirements for account and submit them to database-->
         <script src = "loginScript.js"></script>
     </body>

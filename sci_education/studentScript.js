@@ -20,22 +20,22 @@ function displayHome() {
 //Code for game links
   function selectMath(){
     console.log("math");
-    localStorage.setItem("subject","Math");
+    localStorage.setItem("subject","math");
     window.location.href = "mathGame.html";
   }
   function selectScience(){
     console.log("science");
-    localStorage.setItem("subject","Science");
+    localStorage.setItem("subject","science");
     window.location.href = "scienceGame.html";
   }
   function selectHistory(){
     console.log("history");
-    localStorage.setItem("subject","History");
+    localStorage.setItem("subject","history");
     window.location.href = "historyGame.html";
   }
   function selectEnglish(){
     console.log("english");
-    localStorage.setItem("subject","English");
+    localStorage.setItem("subject","english");
     window.location.href = "englishGame.html";
   }
 //End code for game links
