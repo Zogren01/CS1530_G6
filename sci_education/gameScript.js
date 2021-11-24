@@ -1,9 +1,44 @@
+var levels = [];
+const l0 = [ //this level sucks, fix it later
+    [0, 11, 20, 1, 0, 0, 1],
+    [24, 11, 18, 1, 0, 0, 1],
+    [1, 9, 2, 2, 0, 0, 3],
+    [1, 18, 3, 1, .1, 43, 1],
+    [8, 20, 2, 4, 0, 0, 1],
+    [30, 20, 2, 4, 0, 0, 1],
+    [45, 16, 2, 1, 0, 0, 1],
+    [32, 23, 15, 1, 0, 0, 2],
+    [3, 10, 1, 1, .2, 44, 2]
+    ];
+const l1 = [
+    [4, 4, 4, 1, 0, 0, 1],
+    [11, 4, 6, 1, .1, 23, 1],
+    [30, 1.5, 1.5, 2, 0, 0, 2],
+    [10, 8, 4, 1, 0, 0, 1],
+    [18, 9, 4, 1, 0, 0, 1],
+    [8, 21, 2, 3, 0, 0, 1],
+    [10, 22, 6, 2, 0, 0, 2],
+    [16, 21, 2, 3, 0, 0, 1],
+    [19, 17, 3, 7, 0, 0, 1],
+    [22, 23, 13, 1, 0, 0, 2],
+    [23, 20, 3, 1, .1, 8, 1],
+    [26, 11, 5, 5, 0, 0, 1],
+    [26, 16, 5, 1, 0, 0, 2],
+    [35, 17, 3, 7, 0, 0, 1],
+    [38, 23, 9, 1, 0, 0, 2],
+    [38, 13, 3, 1, 0, 0, 1],
+    [33, 11, 2, 1, 0, 0, 1],
+    [43, 0, 2, 2, 0, 0, 3]
+    ];
+levels.push(l0);
+levels.push(l1);
+
 var obstacles = [];
 var keyPressed = false;
 var player;
 
-var numLevels = 1;
 var levelNo = 0; //store the current level of the game
+const toClear = 2;
 var subject = localStorage.getItem("subject"); //store value of subject, so that different map textures may be used
 var gameOver = false;
 var levelClear = false;
@@ -19,17 +54,9 @@ const gravity = 0.1;
         myGameArea.start();
         bg.src = "./"+subject+"_bg.png";
         player = new p(2, 22, 2, 2);//should put player in bottom left corner
-        wall = new obstacle(0, 0, 1, 24, 0, 0, 'w');    
-        wall0 = new obstacle(47, 0, 1, 24, 0, 0, 'w');  
-        floor = new obstacle(0, 11, 20, 1, 0, 0, 'w');
-        test6 = new obstacle(24, 11, 18, 1, 0, 0, 'w');
-        goal = new obstacle(1, 9, 2, 2, 0, 0, 'g'); 
-        test = new obstacle(1, 18, 3, 1, .1, 43, 'w'); 
-        test2 = new obstacle(8, 20, 2, 4, 0, 0, 'w');
-        test3 = new obstacle(30, 20, 2, 4, 0, 0, 'w');
-        test4 = new obstacle(45, 16, 2, 1, 0, 0, 'w');
-        test5 = new obstacle(32, 23, 15, 1, 0, 0, 'r');
-        test7 = new obstacle(3, 10, 1, 1, .2, 44, 'r');
+        wall0 = new obstacle(0, 0, 1, 24, 0, 0, 1);    
+        wall1 = new obstacle(47, 0, 1, 24, 0, 0, 1);  
+        loadLevel();
 }
 var myGameArea = {
     canvas : document.createElement("canvas"),
@@ -69,15 +96,15 @@ function obstacle(x, y, width, height, dx, range, type){
     obstacles.push(this);
     this.draw = function(){
         ctx = myGameArea.context;
-        if(type == 'w'){
+        if(type == 1){
             this.image.src = "./math_tile.png"
             ctx.drawImage(this.image, this.x * TS, this.y*TS, this.width*TS, this.height*TS);
         }
-        else if(type == 'r'){
+        else if(type == 2){
             this.image.src = "./lava.png"
             ctx.drawImage(this.image, this.x * TS, this.y*TS, this.width*TS, this.height*TS);
         }
-        else if(type == 'g'){
+        else if(type == 3){
             ctx.fillStyle = "yellow";
             ctx.fillRect(this.x * TS, this.y*TS, this.width*TS, this.height*TS);
         }
@@ -117,12 +144,12 @@ function p(x, y, width, height){ //function for the player character
     }
     this.moveRight = function(){
         if(this.actionType < 6){
-            this.dx = 1/2;
+            this.dx = 1/3;
         }
     }
     this.moveLeft = function(){
         if(this.actionType < 6){
-            this.dx = -1/2;
+            this.dx = -1/3;
         }
     }
     this.jump = function(){ //this function in particular needs lots of editing once jump sprites are complete
@@ -188,10 +215,10 @@ function p(x, y, width, height){ //function for the player character
                 this.onSurface = true;
             }
             if(contact){
-                if(current.type == 'r'){
+                if(current.type == 2){
                     gameOver = true;
                 }
-                else if(current.type == 'g'){
+                else if(current.type == 3){
                     levelClear = true;
                 }
             }
@@ -206,20 +233,38 @@ function p(x, y, width, height){ //function for the player character
 }
 
 function loadLevel(){
- //this will load the current map, which will be a text file of obstacles
+    while(obstacles.length > 2){
+        obstacles.pop();
+    }
+    map = levels[Math.floor(Math.random() * levels.length)];
+    levels.splice(levels.indexOf(map),1);
+    let i;
+    for(i=0; i<map.length; i++){
+        temp = new obstacle(map[i][0],map[i][1],map[i][2],map[i][3],map[i][4],map[i][5],map[i][6]);
+    }
 }
 function updateGameArea() {
   if(gameOver){
     alert("Game over, don't touch the red");
-    player.x = 2;
+    player.x = 1;
     player.y = 22;
     gameOver = false;
     keyPressed = false;
   }
   else if(levelClear){
-    alert("Level clear");
-    levelClear = false;
-    keyPressed = false;
+    levelNo++;
+    if(levelNo == toClear){
+        alert("Game complete, returning to home page");
+        //update assignment database
+        window.location.href = "studentHome.html";
+    }
+    else{
+        levelClear = false;
+        keyPressed = false;
+        loadLevel();
+        player.x = 1;
+        player.y = 22;
+    }
   }
     myGameArea.clear();
     ctx = myGameArea.context;
