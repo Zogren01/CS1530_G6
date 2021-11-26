@@ -5,9 +5,9 @@ Things to do (necessity):
     -finish adding backgrounds
     -finish adding tiles for different objects and fix current ones
     -modify object code so object images don't stretch in weird ways
-    -make player stick to moving objects
-Things to do (wish list):
+    <complete>-make player stick to moving objects
     -add animations for player
+Things to do (wish list):
     -refine player movement based on animations (refine feel of controls)
     -add blocks that switch gravity
     -add portals
@@ -26,7 +26,8 @@ const l0 = [ //this level sucks, fix it later
     [0, 11, 20, 1, 0, 0, 1],
     [24, 11, 18, 1, 0, 0, 1],
     [1, 9, 2, 2, 0, 0, 3],
-    [1, 28, 3, 1, .1, 33, 1],
+    [20, 18, 3, 1, .1, 20, 1],
+    [19, 16, 3, 1, 0, 0, 1],
     [8, 20, 2, 4, 0, 0, 1],
     [30, 20, 2, 4, 0, 0, 1],
     [45, 16, 2, 1, 0, 0, 1],
@@ -73,6 +74,7 @@ var subject = localStorage.getItem("subject");  //store value of subject to set 
 var gameOver = false;                           //used for collision with a hazard obstacle
 var levelClear = false;                         //used for collision with a goal obstacle
 var bg = new Image(cw, ch);                     //stores the background image
+
 
 //starts the game
 function startGame(){
@@ -130,11 +132,19 @@ function obstacle(x, y, width, height, dx, range, type){
         ctx = myGameArea.context;
         if(type == 1){
             this.image.src = "./math_tile.png"
-            ctx.drawImage(this.image, this.x * TS, this.y*TS, this.width*TS, this.height*TS);
+            for(let i = 0; i < this.width; i++){
+                for(let j = 0; j < this.height; j++){
+                    ctx.drawImage(this.image, (this.x+i) * TS, (this.y+j)*TS, TS, TS);
+                }
+            }
         }
         else if(type == 2){
             this.image.src = "./lava.png"
-            ctx.drawImage(this.image, this.x * TS, this.y*TS, this.width*TS, this.height*TS);
+            for(let i = 0; i < this.width; i++){
+                for(let j = 0; j < this.height; j++){
+                    ctx.drawImage(this.image, (this.x+i) * TS, (this.y+j)*TS, TS, TS);
+                }
+            }
         }
         else if(type == 3){
             ctx.fillStyle = "yellow";
@@ -160,6 +170,7 @@ function p(x, y, width, height){ //function for the player character
     this.width = width;
     this.height = height;
     this.onSurface = true;
+    this.surface = null;
     this.actionType = 0; //0 is for idle player facing right
     //draws the player
     this.updateImage = function(){
@@ -169,6 +180,9 @@ function p(x, y, width, height){ //function for the player character
     }
     //checks for collision and updates player position
     this.updatePosition = function(){
+        if(this.surface != null){
+            this.dx += this.surface.dx;
+        }
         this.checkCollision();
         this.x += this.dx;
         this.y += this.dy;
@@ -253,6 +267,7 @@ function p(x, y, width, height){ //function for the player character
             }
             if(sameX && this.y == current.y - this.height){
                 this.onSurface = true;
+                this.surface = current;
             }
             if(contact){
                 if(current.type == 2){
@@ -265,6 +280,7 @@ function p(x, y, width, height){ //function for the player character
         }
         if(!this.onSurface){
             this.dy = this.dy+gravity;
+            this.surface = null;
         }
     }
     this.inLine = function(pos1, len1, pos2, len2){ //helps prevent redundancy in code

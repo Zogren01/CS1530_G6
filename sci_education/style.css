@@ -103,3 +103,13 @@ body{
   height: 80%;
   font-size: x-large;
 }
+#header{
+  text-align: center;
+  position: relative;
+  width: 100%;
+  height: 20%;
+}
+#main{
+  position: relative;
+  height:60%;
+}
