@@ -1,13 +1,16 @@
 /*
 Things to do (necessity):
-    -player collision sometimes behaves weirdly (fix this)
+    <complete>-player collision sometimes behaves weirdly (fix this)
     -add levels
     -finish adding backgrounds
     -finish adding tiles for different objects and fix current ones
-    -modify object code so object images don't stretch in weird ways
+    <complete>-modify object code so object images don't stretch in weird ways
     <complete>-make player stick to moving objects
     -add animations for player
+    -vertical block motion
 Things to do (wish list):
+    -allow blocks to start with negative speed
+    -fix bug that allows player to clip through walls using a moving object
     -refine player movement based on animations (refine feel of controls)
     -add blocks that switch gravity
     -add portals
@@ -54,8 +57,30 @@ const l1 = [
     [33, 11, 2, 1, 0, 0, 1],
     [43, 0, 2, 2, 0, 0, 3]
     ];
+const l2 = [
+    [9, 8, 4, 16, 0, 0, 1],
+    [21, 0, 4, 16, 0, 0, 1],
+    [32, 8, 4, 16, 0, 0, 1],
+    [7, 19, 2, 1, 0, 0, 1],
+    [7, 9, 2, 1, 0, 0, 1],
+    [1, 14, 2, 1, 0, 0, 1],
+    [13, 9, 2, 1, 0, 0, 1],
+    [13, 19, 2, 1, 0, 0, 1],
+    [13, 23, 19, 1, 0, 0, 2],
+    [30, 19, 2, 1, 0, 0, 1],
+    [13, 22, 4, 1, .05, 15, 1],
+    [21, 16, 4, 1, 0, 0, 2],
+    [19, 14, 2, 1, 0, 0, 1],
+    [25, 14, 2, 1, 0, 0, 1],
+    [30, 9, 2, 1, 0, 0, 1],
+    [41, 22, 2, 2, 0, 0, 3],
+    [36, 9, 1, 1, .2, 10, 2],
+    [36, 14, 1, 1, .15, 10, 2],
+    [36, 19, 1, 1, .1, 10, 2]
+    ];
 levels.push(l0);
 levels.push(l1);
+levels.push(l2);
 //end code to implement all levels
 
 //constants needed for game
@@ -63,7 +88,7 @@ const toClear = 2;                          //store the number of levels in a gi
 const cw = document.body.clientWidth * .8;  //canvas width
 const TS = cw/48;                           //tile size based on canvase width
 const ch = TS * 24;                         //canvas height based on tile size
-const gravity = 0.1;                        //gravity (to be scaled by tile size when used in code)
+const gravity = 0.09;                        //gravity (to be scaled by tile size when used in code)
 
 //variables needed for game
 var levelNo = 0;                                //store the current level of the game, when equal to toClear, assignment is complete
@@ -130,7 +155,7 @@ function obstacle(x, y, width, height, dx, range, type){
     //draws image of object based on type and locaiton
     this.draw = function(){
         ctx = myGameArea.context;
-        if(type == 1){
+        if(type <= 1){
             this.image.src = "./math_tile.png"
             for(let i = 0; i < this.width; i++){
                 for(let j = 0; j < this.height; j++){
@@ -153,10 +178,10 @@ function obstacle(x, y, width, height, dx, range, type){
     }
     //updates position of moving objects, flips direction when outside of objects range
     this.updatePosition = function(){
-      if(this.x + this.dx < this.initPos || this.x + this.dx > this.range + this.initPos){
-        this.dx = this.dx * -1;
-      }
-      this.x += this.dx;
+        if(this.x + this.dx < this.initPos || this.x + this.dx > this.range + this.initPos){
+            this.dx = this.dx * -1;
+          }
+          this.x += this.dx;
     }
 }
 
@@ -216,6 +241,7 @@ function p(x, y, width, height){ //function for the player character
     //checks if player is hit by a moving object or will hit a moving object based on current motion
     this.checkCollision = function(){ //THERE ARE STILL GLITCHES WITH THIS FUNCTION
         this.onSurface = false; //default to falling
+        this.dy = this.dy+gravity;
         if(this.y + this.height + this.dy >= 24){
             this.y = 22;
             this.dy = 0;
@@ -229,36 +255,33 @@ function p(x, y, width, height){ //function for the player character
             let collideY = this.inLine(this.y+this.dy, this.height+this.dy, current.y, current.height);
             let contact = false;
             if(sameX && sameY){
-                console.log("collision occuring");
-                console.log(i);
                 if(current.dx > 0){
                     this.x = current.x + current.width;
                 }
-                else{
+                else if(current.dx < 0){
                     this.x = current.x - this.width;
+                }
+                else if(current.dy < 0){
+                    this.y = curreent.y - this.width;
                 }
                 contact = true;
             }
             else{
                 if(sameX && collideY){
-                    if(this.dy > 0){
-                        console.log('surface below');
+                    if(this.dy >= 0){
                         this.y = current.y - this.height;
                     }
                     else{
-                        console.log('surface above');
                         this.y = current.y + current.height;
                     }
                     this.dy = 0;
                     contact = true;
                 }
-                if(sameY && collideX){
+                else if(sameY && collideX){
                     if(this.dx > 0){
-                        console.log('wall on right');
                         this.x = current.x - this.width;
                     }
                     else{
-                        console.log('wall on left');
                         this.x = current.x + current.width;
                     }
                     this.dx = 0;
@@ -279,7 +302,6 @@ function p(x, y, width, height){ //function for the player character
             }
         }
         if(!this.onSurface){
-            this.dy = this.dy+gravity;
             this.surface = null;
         }
     }
@@ -307,6 +329,8 @@ function updateGameArea() {
     alert("Game over, don't touch the red");
     player.x = 1;
     player.y = 22;
+    player.dx = 0;
+    player.dy = 0;
     gameOver = false;
     keyPressed = false;
   }
@@ -323,17 +347,17 @@ function updateGameArea() {
         loadLevel();
         player.x = 1;
         player.y = 22;
+        player.dx = 0;
+        player.dy = 0;
     }
   }
     myGameArea.clear();
     ctx = myGameArea.context;
     ctx.drawImage(bg, 0, 0, cw, ch);
     if(keyPressed == 'ArrowLeft'){
-        console.log("left");
         player.moveLeft();
     }
     else if(keyPressed == 'ArrowRight'){
-        console.log("right");
         player.moveRight();
     }
     else if(keyPressed == 'ArrowDown'){
