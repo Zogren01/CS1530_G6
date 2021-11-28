@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Student Home</title>
+        <link rel="stylesheet" href="./style.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body{
+                background-image: url(./title.png);
+            }
+        </style>
+    </head>
+    <body onload="displayMenu()">
+        <!--div that is the side navigation menu-->
+        <div id="mySidenav" class="sidenav">
+            <!--Link for button to close sidenav-->
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <!--Table with contents of menu-->
+            <table style="width:100%;">
+                <tr>
+                    <th id="un">Username</th>
+                </tr>
+                <tr>
+                    <th id="ms">Math Score: </th>
+                </tr>
+                <tr>
+                    <th id="ss">Science Score: </th>
+                </tr>
+                <tr>
+                    <th id="hs">History Score: </th>
+                </tr>
+                <tr>
+                    <th id="es">English Score: </th>
+                </tr>
+                <tr>
+                    <th>
+                        <a href="./assignments.html">Assignments Page</a>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <p onclick="chat()">Chat</p>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <a href="./login.html">Logout</a>>
+                    </th>
+                </tr>
+            </table>
+        </div>
+
+          <!-- Use any element to open the sidenav -->
+        <div onclick ="openNav()" id = "unopen_sidenav">
+            <!--Add some image used for button to open menu-->
+            menu
+        </div>
+        <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+        <div id="main">
+            <div id="linkSection">
+                <div class="quadrant">
+                    <button type="button" class="l" onclick="selectMath()" style=background-color:blue;>
+                        Math
+                    </button>
+                </div>
+                <div class="quadrant">
+                    <button type="button" class="l" onclick="selectScience()" style=background-color:green;>
+                        Science
+                    </button>
+                </div>
+                <div class="quadrant">
+                    <button type="button" class="l" onclick="selectHistory()" style=background-color:red;>
+                        History
+                    </button>
+                </div>
+                <div class="quadrant">
+                    <button type="button" class="l" onclick="selectEnglish()" style=background-color:purple;>
+                        English
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--Source for javascript file-->
+        <script src="./studentScript.js"></script>
+    </body>
+</html>
