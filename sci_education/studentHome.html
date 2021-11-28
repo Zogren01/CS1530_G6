@@ -11,7 +11,7 @@
             }
         </style>
     </head>
-    <body onload="displayHome()">
+    <body onload="displayMenu()">
         <!--div that is the side navigation menu-->
         <div id="mySidenav" class="sidenav">
             <!--Link for button to close sidenav-->
@@ -31,6 +31,15 @@
 					</th>
                 </tr>
                 <tr>
+<<<<<<< HEAD
+                    <th id="ss">Science Score: </th>
+                </tr>
+                <tr>
+                    <th id="hs">History Score: </th>
+                </tr>
+                <tr>
+                    <th id="es">English Score: </th>
+=======
                     <th>History Score: 
 						<script>
 							var historyScore = 0; <!-- placeholder until get script to work>
@@ -56,6 +65,7 @@
 							document.write(englishScore);
 						</script>
 					</th>
+>>>>>>> 09eb96050f17a7dfd00327ba696692c04b78c954
                 </tr>
                 <tr>
                     <th>
@@ -64,12 +74,12 @@
                 </tr>
                 <tr>
                     <th>
-                        <a href="./chat.html">Chat</a>
+                        <p onclick="chat()">Chat</p>
                     </th>
                 </tr>
                 <tr>
                     <th>
-                        <a href="./login.html">Logout</a>
+                        <a href="./login.html">Logout</a>>
                     </th>
                 </tr>
             </table>
