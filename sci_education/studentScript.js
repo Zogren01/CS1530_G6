@@ -1,9 +1,17 @@
 let username = localStorage.getItem("username");
 
-function displayHome() {
+function displayMenu() {
   console.log(username);
   document.getElementById("un").innerHTML = username;
-  //update the score values based on database information
+  //read from database to get the scoress for each subject
+  let m = 0; //set to math score
+  let s = 1;
+  let h = 2;
+  let e = 3;
+  document.getElementById("ms").innerHTML = "Math Score: " + m;
+  document.getElementById("ss").innerHTML = "Science Score: " + s;
+  document.getElementById("hs").innerHTML = "History Score: " + h;
+  document.getElementById("es").innerHTML = "English Score: " + e;
 }
 //Code for side navigation menu
   /* Set the width of the side navigation to 250px */
@@ -39,26 +47,11 @@ function displayHome() {
     window.location.href = "englishGame.html";
   }
 //End code for game links
-
-
-
-//SQL queries for retrieving Subject scores
-/*
-  function getMathScore() {
-	SELECT mathLevel FROM dbo.profiles
-	WHERE username = '$username';
-  }
-  function getHistoryScore() {	
-    SELECT historyLevel FROM dbo.profiles
-	WHERE username = '$username';
-  }
-  function getScienceScore() {
-	SELECT scienceLevel FROM dbo.profiles
-	WHERE username = '$username';
-  }
-  function getEnglishScore() {
-    SELECT englishLevel FROM dbo.profiles
-	WHERE username = '$username';
-  }
-*/
-//End code for retrieving Subject scores
+//Code for displaying assignment and chat pages
+function loadAssignmentPage(){
+  //load information for each student from database
+}
+function chat(){
+  alert("Chat page is not yet implemented");
+}
+//End code for displaying assignment and chat pages

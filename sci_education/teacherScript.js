@@ -8,5 +8,13 @@ function viewClass(){
     window.location.href = "class.html";
 }
 function chat(){
-    window.location.href = "chat.html";
+    alert("Chatroom is not yet implemented");
+}
+function addAssignment(){
+    //code to check assignment requirements and add to the "database"
+    alert("not yet implemented");
+}
+function loadClassPage(){
+    //load information from class database, display each students subect score
+    alert("not yet implemented");
 }

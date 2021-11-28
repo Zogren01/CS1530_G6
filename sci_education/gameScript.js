@@ -3,18 +3,20 @@ Things to do (necessity):
     <complete>-player collision sometimes behaves weirdly (fix this)
     -add levels
     -finish adding backgrounds
-    -finish adding tiles for different objects and fix current ones
+    -finish adding tiles for different objects and fix current ones (ugly)
     <complete>-modify object code so object images don't stretch in weird ways
     <complete>-make player stick to moving objects
     -add animations for player
     -vertical block motion
 Things to do (wish list):
+    -add crouch command
     -allow blocks to start with negative speed
     -fix bug that allows player to clip through walls using a moving object
     -refine player movement based on animations (refine feel of controls)
     -add blocks that switch gravity
     -add portals
     -add ladders
+    -implement better lighting
     -add more levels
 */
 /*
@@ -99,7 +101,6 @@ var subject = localStorage.getItem("subject");  //store value of subject to set 
 var gameOver = false;                           //used for collision with a hazard obstacle
 var levelClear = false;                         //used for collision with a goal obstacle
 var bg = new Image(cw, ch);                     //stores the background image
-
 
 //starts the game
 function startGame(){

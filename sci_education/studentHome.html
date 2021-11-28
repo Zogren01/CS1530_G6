@@ -11,7 +11,7 @@
             }
         </style>
     </head>
-    <body onload="displayHome()">
+    <body onload="displayMenu()">
         <!--div that is the side navigation menu-->
         <div id="mySidenav" class="sidenav">
             <!--Link for button to close sidenav-->
@@ -25,13 +25,13 @@
                     <th id="ms">Math Score: </th>
                 </tr>
                 <tr>
-                    <th>History Score: </th>
+                    <th id="ss">Science Score: </th>
                 </tr>
                 <tr>
-                    <th>Science Score: </th>
+                    <th id="hs">History Score: </th>
                 </tr>
                 <tr>
-                    <th>English Score: </th>
+                    <th id="es">English Score: </th>
                 </tr>
                 <tr>
                     <th>
@@ -40,12 +40,12 @@
                 </tr>
                 <tr>
                     <th>
-                        <a href="./chat.html">Chat</a>
+                        <p onclick="chat()">Chat</p>
                     </th>
                 </tr>
                 <tr>
                     <th>
-                        <a href="./login.html">Logout</a>
+                        <a href="./login.html">Logout</a>>
                     </th>
                 </tr>
             </table>

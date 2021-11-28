@@ -11,51 +11,53 @@
             }
         </style>
     </head>
-    <body>
+    <body onload="displayMenu()">
         Assignments
         <div id="mySidenav" class="sidenav">
+            <!--Link for button to close sidenav-->
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <!--Table with contents of menu-->
             <table style="width:100%;">
                 <tr>
-                    <th>Username</th>
+                    <th id="un">Username</th>
                 </tr>
                 <tr>
-                    <th>Math Score: </th>
+                    <th id="ms">Math Score: </th>
                 </tr>
                 <tr>
-                    <th>History Score: </th>
+                    <th id="ss">Science Score: </th>
                 </tr>
                 <tr>
-                    <th>Science Score: </th>
+                    <th id="hs">History Score: </th>
                 </tr>
                 <tr>
-                    <th>English Score: </th>
+                    <th id="es">English Score: </th>
                 </tr>
                 <tr>
                     <th>
-                        <a href="./home.html">Home</a>
+                        <a href="./studentHome.html">Home</a>
                     </th>
                 </tr>
                 <tr>
                     <th>
-                        <a href="./chat.html">Chat</a>
+                        <p onclick="chat()">Chat</p>
                     </th>
                 </tr>
                 <tr>
                     <th>
-                        <a href="./login.html">Logout</a>
+                        <a href="./login.html">Logout</a>>
                     </th>
                 </tr>
-                </table>
-          </div>
+            </table>
+        </div>
           
           <!-- Use any element to open the sidenav -->
-          <span onclick="openNav()">menu</span>
-          
+          <div onclick ="openNav()" id = "unopen_sidenav">
+            <!--Add some image used for button to open menu-->
+            menu
+          </div>
           <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
-          <div id="main">
-            ...
-        </div>
-        <script src="./script.js"></script>
+          <div id="main" onload="loadAssignmentPage()"> </div>
+        <script src="./studentScript.js"></script>
     </body>
 </html>

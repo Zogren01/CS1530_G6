@@ -1,7 +1,8 @@
 function login() {
     var type = document.getElementById("account type").value.toLowerCase();
     var username = document.getElementById("username").value;
-    
+    var password = document.getElementById("password").value;
+    //check the database for the provided login information
     if(type == "t"){
       window.location.href = "teacherHome.html";
     }
@@ -18,7 +19,7 @@ function createAccount(){
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
   var pw = document.getElementById("confpassword").value;
-  //refer to documentation to check the requirements for username and password
+  //refer to documentation to check the requirements for username and password, these are not accurate
   if(username.length > 20 || username.length < 6){
     alert("Username must be less than 20 characters long")
   }
@@ -32,7 +33,7 @@ function createAccount(){
     alert("Enter a valid email")
   }
   else{
-    //add information to database
+    //add information to "database"
     alert("Account created successfully")
     localStorage.setItem("username", username);
     window.location.href = "teacherHome.html";
