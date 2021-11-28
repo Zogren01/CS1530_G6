@@ -1,0 +1,9 @@
+userID,username,password,email,profileType,class,mathLevel,englishLevel,historyLevel,scienceLevel
+1,johnDoe,passwo,johnD@gmail.com,0,1,1,1,1,2
+2,mrSmith,passwo,mrSmith@yahoo.com,1,1,,,,
+3,janeRoe,passwo,janeRoe@hotmail.com,0,,2,1,0,2
+4,profChang,passwo,profChang@pitt.elem.edu,1,2,,,,
+5,zogren,passwo,zogren@pitt.elem.edu,0,2,0,0,0,0
+6,bgnas,passwo,bgnas@pitt.elem.edu,0,2,0,0,0,0
+7,freihl,passwo,freih@pitt.elem.edu,0,2,0,0,0,0
+8,jlovr,passwo,jlovr@pitt.elem.edu,0,2,1,0,0,0
