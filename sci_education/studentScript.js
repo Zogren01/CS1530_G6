@@ -1,13 +1,18 @@
+// Initialize and set global database variables
+var connection, connectionString, rs;
+setDatabaseVars();
+// End initialization of global variables
+
 let username = localStorage.getItem("username");
 
 function displayMenu() {
   console.log(username);
   document.getElementById("un").innerHTML = username;
   //read from database to get the scoress for each subject
-  let m = 0; //set to math score
-  let s = 1;
-  let h = 2;
-  let e = 3;
+  let m = returnScore("math"); //set to math score
+  let s = returnScore("science");
+  let h = returnScore("history");
+  let e = returnScore("english");
   document.getElementById("ms").innerHTML = "Math Score: " + m;
   document.getElementById("ss").innerHTML = "Science Score: " + s;
   document.getElementById("hs").innerHTML = "History Score: " + h;
@@ -55,3 +60,18 @@ function chat(){
   alert("Chat page is not yet implemented");
 }
 //End code for displaying assignment and chat pages
+
+//Code for returning scores from database
+function returnScore(subject) {
+	//connection.Open(connectionString);
+	strQuery = "SELECT " + subject + "Level FROM  dbo.profiles WHERE username = 'johnDoe'";
+ 
+   	return strQuery;
+	//return rs.Open(strQuery, connection);
+}
+function setDatabaseVars() {
+	connection = new ActiveXObject("ADODB.Connection");
+    connectionString = "Data Source=GREYAREA; Initial Catalog=SCIsTheLimit; Integrated Security=FALSE; User ID=JR; Password=";
+	//rs = new ActiveXObject("ADODB.Recordset");
+}
+//End code for returning scores from database
