@@ -8,15 +8,19 @@
     <body>
         <h1 style="text-align:center;">SCI's The Limit Education</h1>
         <h2 style="text-align:center;">Login</h2>
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username"><br>
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password"><br>
-        <label for="account type">Account Type (s or t):</label><br>
-        <input type="text" id="account type" name="account type"><br><br>
-        <button type="button" onclick="login()">login</button><br>
+        <form action='login.php' method= 'post'>
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username"><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password"><br>
+            <button onclick='login()' name="submit">Login</button><br>
+        </form>
         <a href="./accountCreation.html">Create Account</a>
-        <script src = "loginScript.js"></script>
-    <!--need link for account creation-->
+        <script>
+            login = function(){
+                var username = document.getElementById("username").value;
+                localStorage.setItem("username", username);
+            }
+        </script>
     </body>
 </html>

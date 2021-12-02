@@ -6,17 +6,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <h1 style="text-align:center;">SCI's The Limit Education</h1>
-        <h2 style="text-align:center;">Account Creation</h2>
-        <label for="username">Username: (must be less than 20 characters)</label><br>
-        <input type="text" id="username" name="username"><br>
-        <label for="email">Email:</label><br>
-        <input type="text" id="email" name="email"><br><br>
-        <label for="password">Password: (must be at least 7 characters)</label><br>
-        <input type="password" id="password" name="password"><br>
-        <label for="confpassword">Confirm Password:</label><br>
-        <input type="password" id="confpassword" name="confpassword"><br>
-        <button type="button" onclick="createAccount()">Create Account</button><br>
+        <form action='addTeacher.php' method= 'post'>
+            <h1 style="text-align:center;">SCI's The Limit Education</h1>
+            <h2 style="text-align:center;">Account Creation</h2>
+            <label for="username">Username: (must be less than 20 characters)</label><br>
+            <input type="text" id="username" name="username"><br>
+            <label for="email">Email:</label><br>
+            <input type="text" id="email" name="email"><br><br>
+            <label for="password">Password: (must be exactly 6 characters)</label><br>
+            <input type="password" id="password" name="password"><br>
+            <label for="confpassword">Confirm Password:</label><br>
+            <input type="password" id="confpassword" name="confpassword"><br>
+            <button name="submit">Create Account</button><br>
+        </form>
         <!--Add a script to check the requirements for account and submit them to database-->
         <script src = "loginScript.js"></script>
     </body>

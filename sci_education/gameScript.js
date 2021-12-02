@@ -1,31 +1,3 @@
-/*
-Things to do (necessity):
-    <complete>-player collision sometimes behaves weirdly (fix this)
-    -add levels
-    -finish adding backgrounds
-    -finish adding tiles for different objects and fix current ones (ugly)
-    <complete>-modify object code so object images don't stretch in weird ways
-    <complete>-make player stick to moving objects
-    -add animations for player
-    -vertical block motion
-Things to do (wish list):
-    -add crouch command
-    -allow blocks to start with negative speed
-    -fix bug that allows player to clip through walls using a moving object
-    -refine player movement based on animations (refine feel of controls)
-    -add blocks that switch gravity
-    -add portals
-    -add ladders
-    -implement better lighting
-    -add more levels
-*/
-/*
-code to implement all levels 
-levels array holds arrays of objects
-objects have format:
-  [x, y, width, height, speed, range, type]
-all values are scaled based on TS, the size of game tiles
-*/
 var levels = [];
 const l0 = [ //this level sucks, fix it later
     [0, 11, 20, 1, 0, 0, 1],
@@ -38,7 +10,7 @@ const l0 = [ //this level sucks, fix it later
     [45, 16, 2, 1, 0, 0, 1],
     [32, 23, 15, 1, 0, 0, 2],
     [3, 10, 1, 1, .2, 44, 2]
-    ];
+];
 const l1 = [
     [4, 4, 4, 1, 0, 0, 1],
     [11, 4, 6, 1, .1, 23, 1],
@@ -58,7 +30,7 @@ const l1 = [
     [38, 13, 3, 1, 0, 0, 1],
     [33, 11, 2, 1, 0, 0, 1],
     [43, 0, 2, 2, 0, 0, 3]
-    ];
+];
 const l2 = [
     [9, 8, 4, 16, 0, 0, 1],
     [21, 0, 4, 16, 0, 0, 1],
@@ -79,40 +51,82 @@ const l2 = [
     [36, 9, 1, 1, .2, 10, 2],
     [36, 14, 1, 1, .15, 10, 2],
     [36, 19, 1, 1, .1, 10, 2]
-    ];
+];
+const l3 = [
+    [1, 12, 6, 1, 0, 0, 1],
+    [6, 13, 6, 1, 0, 0, 1],
+    [11, 14, 6, 1, 0, 0, 1],
+    [21, 16, 4, 1, .1, 17, 1],
+    [21, 20, 4, 1, .15, 17, 1],
+    [15, 20, 5, 4, 0, 0, 1],
+    [20, 23, 24, 1, 0, 0, 2],
+    [43, 20, 4, 4, 0, 0, 1],
+    [7, 8, 4, 1, .1, 11, 1],
+    [24, 8, 4, 1, .2, 14, 1],
+    [43, 5, 4, 1, 0, 0, 1],
+    [45, 3, 2, 2, 0, 0, 3]
+];
+const l4 = [
+    [1, 2, 2, 2, 0, 0, 3],
+    [7, 22, 5, 2, 0, 0, 1],
+    [17, 19, 4, 6, 0, 0, 1],
+    [12, 22, 5, 2, 0, 0, 2],
+    [22, 23, 1, 1, .15, 19, 2],
+    [35, 19, 4, 1, .1, 8, 1],
+    [43, 15, 4, 1, 0, 0, 1],
+    [26, 12, 4, 1, .1, 13, 1],
+    [20, 10, 4, 1, 0, 0, 1],
+    [13, 8, 4, 1, 0, 0, 1],
+    [5, 7, 5, 1, 0, 0, 1],
+    [1, 4, 4, 4, 0, 0, 2]
+];
+const l5 = [
+    [6, 21, 5, 3, 0, 0, 1],
+    [12, 23, 1, 1, .05, 6, 2],
+    [20, 21, 5, 3, 0, 0, 1],
+    [26, 23, 1, 1, .05, 6, 2],
+    [35, 23, 1, 1, .1, 7, 2],
+    [43, 21, 4, 3, 0, 0, 1],
+    [45, 17, 2, 4, 0, 0, 2],
+    [45, 15, 2, 2, 0, 0, 3]
+];
+const l6 = [
+    [6, 20, 4, 4, 0, 0, 1],
+    [10, 16, 4, 8, 0, 0, 1],
+    [14, 12, 4, 12, 0, 0, 1],
+    [18, 8, 4, 16, 0, 0, 1],
+    [22, 23, 25, 1, 0, 0, 2],
+    [22, 20, 2, 2, .2, 22, 3]
+];
 levels.push(l0);
 levels.push(l1);
 levels.push(l2);
-//end code to implement all levels
-
-//constants needed for game
-const toClear = 2;                          //store the number of levels in a given assignment
-const cw = document.body.clientWidth * .8;  //canvas width
-const TS = cw/48;                           //tile size based on canvase width
-const ch = TS * 24;                         //canvas height based on tile size
-const gravity = 0.09;                        //gravity (to be scaled by tile size when used in code)
-
-//variables needed for game
-var levelNo = 0;                                //store the current level of the game, when equal to toClear, assignment is complete
-var player;                                     //the player character
-var obstacles = [];                             //stores all objects of current level
-var keyPressed = false;                         //stores key most recently pressed
-var subject = localStorage.getItem("subject");  //store value of subject to set map textures based on subject
-var gameOver = false;                           //used for collision with a hazard obstacle
-var levelClear = false;                         //used for collision with a goal obstacle
-var bg = new Image(cw, ch);                     //stores the background image
-
-//starts the game
+levels.push(l3);
+levels.push(l4);
+levels.push(l5);
+levels.push(l6);
+const toClear = 3;                        
+const cw = document.body.clientWidth * .8;  
+const TS = cw/48;                          
+const ch = TS * 24;                        
+const gravity = 0.09;                        
+var levelNo = 0;                                
+var player;                                    
+var obstacles = [];                            
+var keyPressed = false;                      
+var subject = localStorage.getItem("subject");
+var gameOver = false;                      
+var levelClear = false;
+var bg = new Image(cw, ch);
 function startGame(){
     console.log(subject);
     myGameArea.start();
     bg.src = "./"+subject+"_bg.png";
-    player = new p(2, 22, 2, 2);//should put player in bottom left corner
-    wall0 = new obstacle(0, 0, 1, 24, 0, 0, 1);    //left and right side walls
+    player = new p(2, 22, 2, 2);
+    wall0 = new obstacle(0, 0, 1, 24, 0, 0, 1);    
     wall1 = new obstacle(47, 0, 1, 24, 0, 0, 1);  
     loadLevel();
 }
-
 //defines the game area
 var myGameArea = {
     canvas : document.createElement("canvas"),
@@ -123,25 +137,19 @@ var myGameArea = {
       this.context = this.canvas.getContext("2d");
       document.body.insertBefore(this.canvas, document.body.childNodes[0]);
       this.interval = setInterval(updateGameArea, 20);
-      window.addEventListener("keydown",function(e){ //listener for key pressed
+      window.addEventListener("keydown",function(e){
             keyPressed = e.key;
       });
-      window.addEventListener("keyup",function(e){ //listener for key released
-            if(e.key == 'ArrowDown'){
-                //might implement later, special case for when player is ducking
-            }
+      window.addEventListener("keyup",function(e){
             if(e.key == keyPressed){
                 keyPressed = false;
             }
       });
       },
-    //clears canvas so it can be redrawn every frame
     clear : function() {
       this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 }
-
-//very similar to java class, takes details for an object and provides methods for that object
 function obstacle(x, y, width, height, dx, range, type){
     this.x = x;
     this.y = y;
@@ -185,10 +193,8 @@ function obstacle(x, y, width, height, dx, range, type){
           this.x += this.dx;
     }
 }
-
 //similar to java class, defines player and their functions
 function p(x, y, width, height){ //function for the player character
-
     this.x = x;
     this.y = y;
     this.dx = 0;
@@ -310,7 +316,6 @@ function p(x, y, width, height){ //function for the player character
         return (pos1 < pos2 + len2 && pos1 + len1 > pos2);
     }
 }
-
 //clears old level, selects a random new level from levels, and loads all objects into objects[]
 function loadLevel(){
     while(obstacles.length > 2){
@@ -323,7 +328,6 @@ function loadLevel(){
         temp = new obstacle(map[i][0],map[i][1],map[i][2],map[i][3],map[i][4],map[i][5],map[i][6]);
     }
 }
-
 //checks variables for level failure or completion, calls player fucntions based on keyPressed, and updates all object&player positions
 function updateGameArea() {
   if(gameOver){

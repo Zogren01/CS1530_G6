@@ -9,10 +9,10 @@ function displayMenu() {
   console.log(username);
   document.getElementById("un").innerHTML = username;
   //read from database to get the scoress for each subject
-  let m = returnScore("math"); //set to math score
-  let s = returnScore("science");
-  let h = returnScore("history");
-  let e = returnScore("english");
+  let m = 0; //returnScore("math"); //set to math score
+  let s = 1; //returnScore("science");
+  let h = 2; //returnScore("history");
+  let e = 3; //returnScore("english");
   document.getElementById("ms").innerHTML = "Math Score: " + m;
   document.getElementById("ss").innerHTML = "Science Score: " + s;
   document.getElementById("hs").innerHTML = "History Score: " + h;
@@ -70,7 +70,7 @@ function returnScore(subject) {
 	//return rs.Open(strQuery, connection);
 }
 function setDatabaseVars() {
-	connection = new ActiveXObject("ADODB.Connection");
+	//connection = new ActiveXObject("ADODB.Connection");
     connectionString = "Data Source=GREYAREA; Initial Catalog=SCIsTheLimit; Integrated Security=FALSE; User ID=JR; Password=";
 	//rs = new ActiveXObject("ADODB.Recordset");
 }
